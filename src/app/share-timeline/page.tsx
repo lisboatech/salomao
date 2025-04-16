@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import TimelineFuturistic from '@/components/timeline/timeline';
 import { BackButton } from '@/components/ui/back-button';
+import Loader from '@/components/ui/loader';
 
-// Página para exibir cronologia compartilhada
-export default function SharedTimelinePage() {
+// Componente interno que usa useSearchParams
+function SharedTimelineContent() {
   const searchParams = useSearchParams();
   const [timelineData, setTimelineData] = useState(null);
   const [error, setError] = useState('');
@@ -84,5 +85,14 @@ export default function SharedTimelinePage() {
       {/* Visualização da cronologia */}
       <TimelineFuturistic meals={meals} isSharedView={true} />
     </div>
+  );
+}
+
+// Componente principal com Suspense boundary
+export default function SharedTimelinePage() {
+  return (
+    <Suspense fallback={<Loader message="Carregando cronologia compartilhada..." />}>
+      <SharedTimelineContent />
+    </Suspense>
   );
 }

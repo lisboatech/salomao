@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ThreeStatsView from '@/components/stats/stats';
 import { BackButton } from '@/components/ui/back-button';
+import Loader from '@/components/ui/loader';
 
-// Página para exibir estatísticas compartilhadas
-export default function SharedStatsPage() {
+// Componente interno que usa useSearchParams
+function SharedStatsContent() {
   const searchParams = useSearchParams();
   const [statsData, setStatsData] = useState(null);
   const [error, setError] = useState('');
@@ -81,5 +82,14 @@ export default function SharedStatsPage() {
       {/* Visualização das estatísticas */}
       <ThreeStatsView meals={meals} isSharedView={true} />
     </div>
+  );
+}
+
+// Componente principal com Suspense boundary
+export default function SharedStatsPage() {
+  return (
+    <Suspense fallback={<Loader message="Carregando estatísticas compartilhadas..." />}>
+      <SharedStatsContent />
+    </Suspense>
   );
 }
