@@ -1,0 +1,144 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+import { usePathname } from 'next/navigation';
+
+interface VoiceSphereProps {
+  isConnected: boolean;
+  agentState?: string;
+}
+
+export const VoiceSphere = ({ isConnected, agentState = 'disconnected' }: VoiceSphereProps) => {
+  const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const sphereRef = useRef<THREE.Points | null>(null);
+  const animationFrameRef = useRef<number | undefined>(undefined);
+
+  const [pulseIntensity, setPulseIntensity] = useState(0);
+
+  // Efeito para animar a esfera com base no estado do agente
+  useEffect(() => {
+    // Desativando o efeito de pulso
+    setPulseIntensity(0);
+  }, [agentState, isConnected]);
+
+  useEffect(() => {
+    const initScene = () => {
+      if (!containerRef.current) return;
+
+      // Cleanup existing scene if any
+      if (rendererRef.current || sceneRef.current) {
+        cleanup();
+      }
+
+      // Scene setup
+      const scene = new THREE.Scene();
+      sceneRef.current = scene;
+
+      // Camera setup
+      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+      camera.position.z = 2;
+      cameraRef.current = camera;
+
+      // Renderer setup
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      const width = containerRef.current.clientWidth || 450;
+      const height = containerRef.current.clientHeight || 450;
+      renderer.setSize(width, height);
+      renderer.setClearColor(0x000000, 0);
+      containerRef.current.appendChild(renderer.domElement);
+      rendererRef.current = renderer;
+
+      // Create sphere particles
+      const geometry = new THREE.SphereGeometry(1, 32, 32);
+      const positions = [];
+      // Cor única para a esfera - estilo Apple premium
+      const createSingleColor = (numPoints: number) => {
+        const colorArray = [];
+        const sphereColor = new THREE.Color('#BF5AF2'); // Roxo Apple - cor premium
+
+        // Preenche o array com a mesma cor para todos os pontos
+        for (let i = 0; i < numPoints; i++) {
+          colorArray.push(sphereColor.r, sphereColor.g, sphereColor.b);
+        }
+
+        return colorArray;
+      };
+
+      const colors = createSingleColor(2500);
+
+      // Convert sphere geometry to points
+      for (let i = 0; i < 2500; i++) {
+        const vertex = new THREE.Vector3();
+        vertex.x = Math.random() * 2 - 1;
+        vertex.y = Math.random() * 2 - 1;
+        vertex.z = Math.random() * 2 - 1;
+        vertex.normalize();
+        vertex.multiplyScalar(1);
+        positions.push(vertex.x, vertex.y, vertex.z);
+        // Cores já definidas pelo gradiente
+      }
+
+      const pointGeometry = new THREE.BufferGeometry();
+      pointGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      pointGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      const pointsMaterial = new THREE.PointsMaterial({
+        size: 0.02,
+        vertexColors: true,
+        transparent: true,
+      });
+
+      const sphere = new THREE.Points(pointGeometry, pointsMaterial);
+      scene.add(sphere);
+      sphereRef.current = sphere;
+
+      // Animation loop
+      const animate = () => {
+        animationFrameRef.current = requestAnimationFrame(animate);
+        if (sphereRef.current) {
+          sphereRef.current.rotation.x += 0.001;
+          sphereRef.current.rotation.y += 0.001;
+
+          // Mantém a escala constante, sem efeito de pulso
+          sphereRef.current.scale.set(1, 1, 1);
+        }
+        renderer.render(scene, camera);
+      };
+      animate();
+    };
+
+    const cleanup = () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
+      if (containerRef.current) {
+        const canvas = containerRef.current.querySelector('canvas');
+        if (canvas) {
+          containerRef.current.removeChild(canvas);
+        }
+      }
+      if (sphereRef.current) {
+        sphereRef.current.geometry.dispose();
+        if (sphereRef.current.material instanceof THREE.Material) {
+          sphereRef.current.material.dispose();
+        }
+      }
+      if (sceneRef.current) {
+        sceneRef.current.clear();
+      }
+    };
+
+    initScene();
+    return cleanup;
+  }, [pathname]); // Removida dependência de pulseIntensity
+
+  return <div ref={containerRef} className="w-[380px] h-[380px] mb-2 sm:w-[400px] sm:h-[400px] md:w-[420px] md:h-[420px] lg:w-[450px] lg:h-[450px]" key={pathname} />;
+};

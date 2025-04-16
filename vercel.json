@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "MONGODB_URI": "mongodb+srv://lisboatech:Jpd0NgGIkz7PYBHX@jane.1ugnrns.mongodb.net/jane-meals?retryWrites=true&w=majority&appName=jane"
+  }
+}

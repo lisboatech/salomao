@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jane - Aplicação de Gerenciamento de Refeições
 
-## Getting Started
+## 🍽️ Sobre o Projeto
 
-First, run the development server:
+Jane é uma aplicação full-stack para gerenciamento de refeições diárias, desenvolvida com Next.js (App Router), MongoDB Atlas e implantada na Vercel. A aplicação permite aos usuários registrar, visualizar, editar e excluir refeições, além de fornecer visualizações estatísticas em 3D e uma interface futurista.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Link do Deploy
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[Link da aplicação em produção](https://jane-meal-tracker.vercel.app) <!-- Substitua este link pelo seu link real após o deploy -->
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- CRUD completo de refeições (criar, visualizar, editar e excluir)
+- Filtro por tipo de refeição (Café da manhã, Almoço, Lanche da tarde, Janta)
+- Dashboard interativo com visualização de refeições
+- Contador de calorias diárias
+- Visualização estatística em 3D
+- Cronologia alimentar
+- Interface futurista e minimalista 
 
-## Learn More
+## 🛠️ Tecnologias Utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Next.js 15, React 19, TailwindCSS 4, Three.js
+- **Backend**: API Routes do Next.js
+- **Banco de Dados**: MongoDB Atlas
+- **Deploy**: Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧰 Como Executar Localmente
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone o repositório
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3. Configure as variáveis de ambiente criando um arquivo `.env.local` com:
+   ```
+   MONGODB_URI=sua_string_de_conexao_mongodb
+   ```
+4. Execute o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+5. Acesse [http://localhost:3000](http://localhost:3000) no seu navegador
 
-## Deploy on Vercel
+## 📱 Responsividade
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+A aplicação foi projetada para funcionar em dispositivos desktop, com foco em uma experiência premium e futurista.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Licença
+
+Este projeto está sob a licença MIT.
