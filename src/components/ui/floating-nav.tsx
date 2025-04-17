@@ -53,7 +53,7 @@ export function FloatingNav({ onAddClick, meals = [], loading = false, error = n
         <div className="grid grid-cols-3 gap-4 xs:gap-6 sm:gap-8 md:gap-12 lg:gap-16 justify-items-center mb-10 sm:mb-16 -mt-6 sm:-mt-12 md:-mt-16 lg:-mt-20">
           {/* Adicionar Refeições App */}
           <AppIcon label="Adicionar" onClick={onAddClick}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" className="sm:w-[28px] sm:h-[28px] md:w-[32px] md:h-[32px]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="16" />
               <line x1="8" y1="12" x2="16" y2="12" />
@@ -62,7 +62,7 @@ export function FloatingNav({ onAddClick, meals = [], loading = false, error = n
 
           {/* Estatísticas App */}
           <AppIcon label="Estatísticas VR" href="/statistics">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" className="sm:w-[28px] sm:h-[28px] md:w-[32px] md:h-[32px]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="20" x2="18" y2="10" />
               <line x1="12" y1="20" x2="12" y2="4" />
               <line x1="6" y1="20" x2="6" y2="14" />
@@ -71,7 +71,7 @@ export function FloatingNav({ onAddClick, meals = [], loading = false, error = n
 
           {/* Cronologia Alimentar App */}
           <AppIcon label="Cronologia" href="/timeline">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" className="sm:w-[28px] sm:h-[28px] md:w-[32px] md:h-[32px]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>

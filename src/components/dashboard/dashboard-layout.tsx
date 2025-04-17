@@ -28,7 +28,7 @@ export function DashboardLayout({
   onFilterChange
 }: DashboardLayoutProps) {
   return (
-    <main className="min-h-screen bg-black text-white p-3 xs:p-4 sm:p-5 md:p-10 overflow-x-hidden overflow-y-auto lg:overflow-hidden">
+    <main className="h-screen bg-black text-white p-3 xs:p-4 sm:p-5 md:p-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header com logo - transparente e discreto */}
         <div className="flex flex-col">
@@ -70,11 +70,11 @@ export function DashboardLayout({
         </div>
 
         {/* Layout premium estilo Apple: Esfera e gerenciamento de refeições */}
-        <div className="flex flex-col lg:flex-row lg:items-center min-h-[calc(100vh-120px)] lg:h-screen overflow-visible lg:overflow-hidden mt-4 sm:mt-6">
+        <div className="flex flex-col lg:flex-row lg:items-center h-[calc(100vh-120px)] overflow-hidden mt-2 sm:mt-4">
           {/* Área esquerda: Esfera como elemento âncora - estilo Apple */}
           <div className="w-full lg:w-[45%] flex flex-col items-center lg:sticky lg:top-0 mb-4 lg:mb-0 lg:h-[calc(100vh-120px)]">
             {/* Esfera de visualização com botão de voz - posicionada mais acima */}
-            <div className="relative w-full flex items-center justify-center h-[300px] xs:h-[350px] sm:h-[400px] lg:h-[60vh] mt-6 sm:mt-8 md:mt-6 lg:mt-6">
+            <div className="relative w-full flex items-center justify-center h-[250px] xs:h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] mt-8 xs:mt-10 sm:mt-12 md:mt-10 lg:mt-8">
               {/* Efeito de brilho sutil em torno da esfera */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="absolute -inset-4 bg-white/[0.01] blur-3xl rounded-full opacity-30"></div>

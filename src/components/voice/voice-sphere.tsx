@@ -179,5 +179,5 @@ export const VoiceSphere = ({ isConnected, agentState = 'disconnected' }: VoiceS
     return cleanup;
   }, [pathname]); // Removida dependência de pulseIntensity
 
-  return <div ref={containerRef} className="w-[300px] h-[300px] xs:w-[350px] xs:h-[350px] sm:w-[450px] sm:h-[450px] md:w-[500px] md:h-[500px] lg:w-[550px] lg:h-[550px] transition-all duration-300" key={pathname} />;
+  return <div ref={containerRef} className="w-[250px] h-[250px] xs:w-[300px] xs:h-[300px] sm:w-[400px] sm:h-[400px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px] transition-all duration-300" key={pathname} />;
 };
