@@ -50,7 +50,7 @@ export function FloatingNav({ onAddClick, meals = [], loading = false, error = n
 
 
         {/* Grid de aplicativos estilo Apple */}
-        <div className="grid grid-cols-3 gap-10 md:gap-12 lg:gap-16 justify-items-center mb-16 -mt-12 sm:-mt-16 md:-mt-20 lg:-mt-24">
+        <div className="grid grid-cols-3 gap-4 xs:gap-6 sm:gap-8 md:gap-12 lg:gap-16 justify-items-center mb-10 sm:mb-16 -mt-6 sm:-mt-12 md:-mt-16 lg:-mt-20">
           {/* Adicionar Refeições App */}
           <AppIcon label="Adicionar" onClick={onAddClick}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">

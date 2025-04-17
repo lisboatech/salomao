@@ -28,15 +28,15 @@ export function DashboardLayout({
   onFilterChange
 }: DashboardLayoutProps) {
   return (
-    <main className="h-screen bg-black text-white p-5 md:p-10 overflow-hidden">
+    <main className="min-h-screen bg-black text-white p-3 xs:p-4 sm:p-5 md:p-10 overflow-x-hidden overflow-y-auto lg:overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header com logo - transparente e discreto */}
         <div className="flex flex-col">
-          <header className="flex justify-between items-center px-5 py-3 md:px-10 md:py-3 mb-4 bg-black/20 backdrop-blur-sm rounded-xl">
+          <header className="flex justify-between items-center px-3 xs:px-4 sm:px-5 py-2 xs:py-3 md:px-10 md:py-3 mb-3 sm:mb-4 bg-black/20 backdrop-blur-sm rounded-lg sm:rounded-xl">
             <div className="hover:opacity-80 transition-opacity duration-300">
               <JaneLogo />
             </div>
-            <a href="/" className="bg-[#F5F5F7] px-5 py-2 rounded-full font-medium tracking-wider inline-flex items-center gap-2 hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group">
+            <a href="/" className="bg-[#F5F5F7] px-3 xs:px-4 sm:px-5 py-1.5 xs:py-2 rounded-full text-xs sm:text-sm font-medium tracking-wider inline-flex items-center gap-1 sm:gap-2 hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group">
               {/* Efeito metálico sutil */}
               <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-black/5"></div>
 
@@ -52,29 +52,29 @@ export function DashboardLayout({
                 <path d="M11 6L5 12L11 18" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
 
-              <span className="relative z-10 text-[#000000] font-medium tracking-wider text-sm">VOLTAR</span>
+              <span className="relative z-10 text-[#000000] font-medium tracking-wider text-xs sm:text-sm">VOLTAR</span>
             </a>
           </header>
         </div>
 
         {/* Contador de calorias premium estilo Apple - posicionado no topo centralizado */}
-        <div className="absolute top-[100px] left-1/2 transform -translate-x-1/2 z-20 pointer-events-none">
-          <div className="text-center backdrop-blur-sm bg-black/5 px-10 py-4 rounded-3xl border-t border-l border-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
-            <div className="text-5xl font-thin tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#BF5AF2]/90 to-[#0A84FF]/90 mb-1" style={{letterSpacing: '-0.02em'}}>
+        <div className="absolute top-[80px] sm:top-[100px] left-1/2 transform -translate-x-1/2 z-20 pointer-events-none">
+          <div className="text-center backdrop-blur-sm bg-black/5 px-6 sm:px-10 py-3 sm:py-4 rounded-2xl sm:rounded-3xl border-t border-l border-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+            <div className="text-4xl sm:text-5xl font-thin tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#BF5AF2]/90 to-[#0A84FF]/90 mb-1" style={{letterSpacing: '-0.02em'}}>
               {filteredMeals.reduce((total, meal) => total + meal.calories, 0)}
             </div>
-            <div className="text-[9px] uppercase tracking-widest text-white/50 font-light">
+            <div className="text-[8px] sm:text-[9px] uppercase tracking-widest text-white/50 font-light">
               calorias
             </div>
           </div>
         </div>
 
         {/* Layout premium estilo Apple: Esfera e gerenciamento de refeições */}
-        <div className="flex flex-col lg:flex-row lg:items-center h-screen overflow-hidden mt-6">
+        <div className="flex flex-col lg:flex-row lg:items-center min-h-[calc(100vh-120px)] lg:h-screen overflow-visible lg:overflow-hidden mt-4 sm:mt-6">
           {/* Área esquerda: Esfera como elemento âncora - estilo Apple */}
           <div className="w-full lg:w-[45%] flex flex-col items-center lg:sticky lg:top-0 mb-4 lg:mb-0 lg:h-[calc(100vh-120px)]">
             {/* Esfera de visualização com botão de voz - posicionada mais acima */}
-            <div className="relative w-full flex items-center justify-center h-[400px] lg:h-[60vh] mt-12 sm:mt-10 md:mt-8 lg:mt-6">
+            <div className="relative w-full flex items-center justify-center h-[300px] xs:h-[350px] sm:h-[400px] lg:h-[60vh] mt-6 sm:mt-8 md:mt-6 lg:mt-6">
               {/* Efeito de brilho sutil em torno da esfera */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="absolute -inset-4 bg-white/[0.01] blur-3xl rounded-full opacity-30"></div>

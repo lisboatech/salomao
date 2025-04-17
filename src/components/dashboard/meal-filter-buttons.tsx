@@ -9,7 +9,7 @@ interface MealFilterButtonsProps {
 export function MealFilterButtons({ selectedFilterType, handleFilterClick }: MealFilterButtonsProps) {
   return (
     <div className="mt-0 w-full flex justify-center">
-      <div className="grid grid-cols-4 gap-8 md:gap-10 lg:gap-12 justify-items-center">
+      <div className="grid grid-cols-4 gap-2 xs:gap-4 sm:gap-6 md:gap-10 lg:gap-12 justify-items-center">
         {/* Café da manhã */}
         <AppIcon
           label="Café"
