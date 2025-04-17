@@ -30,9 +30,9 @@ export function DashboardLayout({
   return (
     <main className="h-screen bg-black text-white p-5 md:p-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Header com logo */}
+        {/* Header com logo - transparente e discreto */}
         <div className="flex flex-col">
-          <header className="flex justify-between items-center px-5 py-4 md:px-20 md:py-4 mb-4 bg-black/20 backdrop-blur-sm rounded-xl">
+          <header className="flex justify-between items-center px-5 py-3 md:px-10 md:py-3 mb-4 bg-black/20 backdrop-blur-sm rounded-xl">
             <div className="hover:opacity-80 transition-opacity duration-300">
               <JaneLogo />
             </div>
@@ -57,16 +57,28 @@ export function DashboardLayout({
           </header>
         </div>
 
-        {/* Layout responsivo: Esfera e gerenciamento de refeições */}
-        <div className="flex flex-col lg:flex-row gap-8 md:gap-16 lg:gap-32 mb-24 h-screen overflow-y-auto overflow-x-hidden lg:overflow-hidden mt-2">
-          {/* Área esquerda: Esfera como elemento âncora */}
-          <div className="w-full lg:w-1/3 flex flex-col items-center justify-start lg:sticky lg:top-0 lg:pl-16 mb-8 lg:mb-0">
-            {/* Esfera de visualização com botão de voz */}
-            <div className="relative w-full h-[450px] lg:h-[90vh] flex items-start justify-center mt-[10px] lg:mt-[20px] pt-[20px]">
-              {/* Efeito de brilho em torno da esfera */}
-              <div className="absolute inset-0 flex items-start justify-center pt-[30px] sm:pt-[40px] md:pt-[50px] lg:pt-[60px]">
-                <div className="absolute -inset-4 bg-white/[0.02] blur-3xl rounded-full opacity-50"></div>
-                <div className="relative scale-110 md:scale-125">
+        {/* Contador de calorias premium estilo Apple - posicionado no topo centralizado */}
+        <div className="absolute top-[100px] left-1/2 transform -translate-x-1/2 z-20 pointer-events-none">
+          <div className="text-center backdrop-blur-sm bg-black/5 px-10 py-4 rounded-3xl border-t border-l border-white/5 shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+            <div className="text-5xl font-thin tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#BF5AF2]/90 to-[#0A84FF]/90 mb-1" style={{letterSpacing: '-0.02em'}}>
+              {filteredMeals.reduce((total, meal) => total + meal.calories, 0)}
+            </div>
+            <div className="text-[9px] uppercase tracking-widest text-white/50 font-light">
+              calorias
+            </div>
+          </div>
+        </div>
+
+        {/* Layout premium estilo Apple: Esfera e gerenciamento de refeições */}
+        <div className="flex flex-col lg:flex-row lg:items-center h-screen overflow-hidden mt-6">
+          {/* Área esquerda: Esfera como elemento âncora - estilo Apple */}
+          <div className="w-full lg:w-[45%] flex flex-col items-center lg:sticky lg:top-0 mb-4 lg:mb-0 lg:h-[calc(100vh-120px)]">
+            {/* Esfera de visualização com botão de voz - posicionada mais acima */}
+            <div className="relative w-full flex items-center justify-center h-[400px] lg:h-[60vh] mt-12 sm:mt-10 md:mt-8 lg:mt-6">
+              {/* Efeito de brilho sutil em torno da esfera */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute -inset-4 bg-white/[0.01] blur-3xl rounded-full opacity-30"></div>
+                <div className="relative">
                   <VoiceButton />
                 </div>
               </div>
@@ -74,8 +86,8 @@ export function DashboardLayout({
           </div>
 
           {/* Área direita: Navegação e features */}
-          <div className="w-full lg:w-2/3 flex flex-col items-center">
-            <div className="w-full flex flex-col items-center">
+          <div className="w-full lg:w-[55%] flex flex-col items-center justify-center lg:pl-12 lg:h-[calc(100vh-120px)]">
+            <div className="w-full flex flex-col items-center max-w-[550px] mx-auto">
               <FloatingNav
                 onAddClick={onAddClick}
                 meals={filteredMeals}

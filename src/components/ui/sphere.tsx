@@ -41,25 +41,36 @@ export const VisualizationSphere = () => {
       rendererRef.current = renderer;
 
       // Create sphere particles
-      const geometry = new THREE.SphereGeometry(1, 32, 32);
+      const geometry = new THREE.SphereGeometry(1, 64, 64);
       const positions = [];
-      // Cor única para a esfera - estilo Apple premium
-      const createSingleColor = (numPoints: number) => {
-        const colorArray = [];
-        const sphereColor = new THREE.Color('#BF5AF2'); // Roxo Apple - cor premium
 
-        // Preenche o array com a mesma cor para todos os pontos
+      // Cores premium para a esfera - estilo Apple com gradiente sutil
+      const createGradientColors = (numPoints: number) => {
+        const colorArray = [];
+        const primaryColor = new THREE.Color('#BF5AF2'); // Roxo Apple
+        const secondaryColor = new THREE.Color('#0A84FF'); // Azul Apple
+
+        // Cria um gradiente de cores para os pontos
         for (let i = 0; i < numPoints; i++) {
-          colorArray.push(sphereColor.r, sphereColor.g, sphereColor.b);
+          // Cria uma mistura entre as duas cores baseada na posição
+          // Favorece a cor roxa (80% roxo, 20% azul em média)
+          const mixFactor = Math.random() * 0.4; // Limita a mistura para manter predominância do roxo
+          const color = new THREE.Color().lerpColors(primaryColor, secondaryColor, mixFactor);
+
+          // Adiciona uma pequena variação de brilho para alguns pontos
+          const brightness = 0.9 + Math.random() * 0.2;
+          color.multiplyScalar(brightness);
+
+          colorArray.push(color.r, color.g, color.b);
         }
 
         return colorArray;
       };
 
-      const colors = createSingleColor(2500);
+      const colors = createGradientColors(3000);
 
       // Convert sphere geometry to points
-      for (let i = 0; i < 2500; i++) {
+      for (let i = 0; i < 3000; i++) {
         const vertex = new THREE.Vector3();
         vertex.x = Math.random() * 2 - 1;
         vertex.y = Math.random() * 2 - 1;
@@ -75,21 +86,34 @@ export const VisualizationSphere = () => {
       pointGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
       const pointsMaterial = new THREE.PointsMaterial({
-        size: 0.02,
+        size: 0.01, // Pontos menores para um visual mais premium
         vertexColors: true,
         transparent: true,
+        opacity: 0.8, // Mais transparente
+        sizeAttenuation: true,
       });
 
       const sphere = new THREE.Points(pointGeometry, pointsMaterial);
       scene.add(sphere);
       sphereRef.current = sphere;
 
+      // Variáveis para animação suave estilo Apple
+      let time = 0;
+      let rotationSpeed = 0.0003; // Rotação mais lenta e elegante
+
       // Animation loop
       const animate = () => {
+        time += 0.005; // Movimento mais lento
         animationFrameRef.current = requestAnimationFrame(animate);
+
         if (sphereRef.current) {
-          sphereRef.current.rotation.x += 0.001;
-          sphereRef.current.rotation.y += 0.001;
+          // Rotação suave
+          sphereRef.current.rotation.x += rotationSpeed;
+          sphereRef.current.rotation.y += rotationSpeed * 1.2;
+
+          // Efeito de respiração muito sutil - estilo Apple
+          const breatheFactor = 1 + Math.sin(time * 0.3) * 0.005;
+          sphereRef.current.scale.set(breatheFactor, breatheFactor, breatheFactor);
         }
         renderer.render(scene, camera);
       };
