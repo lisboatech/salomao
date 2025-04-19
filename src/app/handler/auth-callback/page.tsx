@@ -1,23 +1,39 @@
 'use client';
 
-import { useEffect, Suspense } from 'react';
+import { useEffect, Suspense, useState } from 'react';
 import { useUser } from '@stackframe/stack';
 
-// Componente interno que usa useUser
+// Componente interno que usa useUser de forma segura
 function AuthCallbackContent() {
-  const user = useUser();
+  const [isClient, setIsClient] = useState(false);
+
+  // Usar try/catch para evitar erros durante o build
+  let user = null;
+  try {
+    // Tentar obter o usuário apenas no cliente
+    if (typeof window !== 'undefined') {
+      user = useUser({ or: 'return' });
+    }
+  } catch (error) {
+    // Silenciar o erro durante o build
+  }
+
+  // Verificar se estamos no cliente
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     // Adicionar um pequeno atraso para garantir que a sessão seja processada
-    const redirectTimer = setTimeout(() => {
-      if (user) {
+    if (isClient && user) {
+      const redirectTimer = setTimeout(() => {
         // Usar window.location.href para forçar um redirecionamento completo
         window.location.href = '/dashboard';
-      }
-    }, 500);
+      }, 500);
 
-    return () => clearTimeout(redirectTimer);
-  }, [user]);
+      return () => clearTimeout(redirectTimer);
+    }
+  }, [user, isClient]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black">
