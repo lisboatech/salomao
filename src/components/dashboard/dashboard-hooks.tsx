@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useUser } from '@stackframe/stack';
 
 interface Meal {
   _id: string;
@@ -12,6 +13,9 @@ interface Meal {
 }
 
 export function useMeals() {
+  // Obter o usuário autenticado
+  const user = useUser();
+
   const [meals, setMeals] = useState<Meal[]>([]);
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,11 +28,13 @@ export function useMeals() {
   const [selectedFilterType, setSelectedFilterType] = useState<string | null>(null);
   const [filteredMealsByType, setFilteredMealsByType] = useState<Meal[]>([]);
 
-  // Buscar refeições ao carregar a página
+  // Buscar refeições ao carregar a página ou quando o usuário mudar
   useEffect(() => {
-    fetchMeals();
-    fetchCalories();
-  }, []);
+    if (user) {
+      fetchMeals();
+      fetchCalories();
+    }
+  }, [user]);
 
   // Inicializar filteredMeals com meals e calcular calorias
   useEffect(() => {
@@ -66,7 +72,6 @@ export function useMeals() {
     try {
       // Obter a data atual no formato YYYY-MM-DD
       const today = new Date().toISOString().split('T')[0];
-      console.log('Buscando calorias para a data:', today);
 
       // Adicionar um timestamp para evitar cache
       const timestamp = new Date().getTime();
@@ -79,25 +84,20 @@ export function useMeals() {
       });
 
       if (!response.ok) {
-        console.error('Resposta não-OK da API de calorias:', response.status, response.statusText);
         throw new Error('Falha ao buscar calorias');
       }
 
       const data = await response.json();
-      console.log('Resposta da API de calorias:', data);
 
       // Verificar se os dados contêm totalCalories
       if (data && typeof data.totalCalories === 'number') {
         // Atualizar o estado com o valor das calorias
-        console.log('Atualizando totalCalories para:', data.totalCalories);
         setTotalCalories(data.totalCalories);
       } else {
-        console.warn('API retornou dados sem totalCalories válido:', data);
         // Calcular calorias localmente como fallback
         calculateTotalCalories(meals);
       }
     } catch (err) {
-      console.error('Erro ao buscar calorias:', err);
       // Calcular calorias localmente como fallback
       calculateTotalCalories(meals);
     }
@@ -152,11 +152,8 @@ export function useMeals() {
     try {
       // Verificar se o ID é válido
       if (!id || typeof id !== 'string' || id.trim() === '') {
-        console.error('ID inválido:', id);
         return;
       }
-
-      console.log('Excluindo refeição com ID:', id);
 
       const response = await fetch(`/api/meals/${id}`, {
         method: 'DELETE',
@@ -168,11 +165,8 @@ export function useMeals() {
       const responseData = await response.json();
 
       if (!response.ok) {
-        console.error('Resposta de erro:', responseData);
         throw new Error(responseData.error || 'Falha ao excluir refeição');
       }
-
-      console.log('Refeição excluída com sucesso:', responseData);
 
       // Atualizar a lista de refeições
       await fetchMeals();
@@ -189,7 +183,6 @@ export function useMeals() {
       await fetchCalories();
 
     } catch (err) {
-      console.error('Erro ao excluir refeição:', err);
       setError(err instanceof Error ? err.message : 'Erro ao excluir refeição');
     }
   };
@@ -233,7 +226,6 @@ export function useMeals() {
 
       // Forçar atualização das calorias
       const today = new Date().toISOString().split('T')[0];
-      console.log('Buscando calorias para a data após salvar:', today);
 
       // Adicionar um pequeno atraso para garantir que o banco de dados foi atualizado
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -241,13 +233,12 @@ export function useMeals() {
       const caloriesResponse = await fetch(`/api/meals/calories?date=${today}`);
       if (caloriesResponse.ok) {
         const caloriesData = await caloriesResponse.json();
-        console.log('Calorias após salvar refeição:', caloriesData);
 
         // Atualizar diretamente o estado
         setTotalCalories(caloriesData.totalCalories);
       }
     } catch (err) {
-      console.error('Erro ao salvar refeição:', err);
+      // Tratar erro silenciosamente
     }
   };
 
@@ -274,4 +265,4 @@ export function useMeals() {
   };
 }
 
-export type { Meal }; 
+export type { Meal };

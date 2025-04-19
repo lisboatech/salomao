@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import Meal from '@/models/Meal';
+import { stackServerApp } from '@/stack';
 
 // GET /api/meals - Listar todas as refeições (com suporte a filtro por tipo)
 export async function GET(request: NextRequest) {
   try {
+    // Verificar se o usuário está autenticado
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+
     await dbConnect();
 
     // Obter parâmetros da URL
@@ -13,7 +20,10 @@ export async function GET(request: NextRequest) {
     const date = searchParams.get('date');
 
     // Construir query baseada nos filtros
-    let query: any = {};
+    let query: any = {
+      // Adicionar userId para filtrar apenas as refeições do usuário autenticado
+      userId: user.id
+    };
 
     // Filtrar por tipo de refeição se especificado
     if (type) {
@@ -50,17 +60,25 @@ export async function GET(request: NextRequest) {
 // POST /api/meals - Criar uma nova refeição
 export async function POST(request: NextRequest) {
   try {
+    // Verificar se o usuário está autenticado
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    }
+
     await dbConnect();
 
     // Obter dados do corpo da requisição
     const data = await request.json();
+
+    // Adicionar o ID do usuário aos dados da refeição
+    data.userId = user.id;
 
     // Criar nova refeição
     const meal = await Meal.create(data);
 
     return NextResponse.json(meal, { status: 201 });
   } catch (error) {
-    console.error('Erro ao criar refeição:', error);
     return NextResponse.json(
       { error: 'Erro ao criar refeição' },
       { status: 500 }

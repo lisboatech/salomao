@@ -13,8 +13,6 @@ export function CaloriesSummary({ totalCalories, date }: CaloriesSummaryProps) {
     year: 'numeric'
   }).format(new Date());
 
-  console.log('Renderizando CaloriesSummary com totalCalories:', totalCalories);
-
   return (
     <div className="glass p-12 rounded-xl w-full min-w-[300px] text-center">
       <h2 className="text-2xl font-semibold mb-3">Calorias</h2>

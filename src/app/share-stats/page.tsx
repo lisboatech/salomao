@@ -46,7 +46,6 @@ function SharedStatsContent() {
 
       setMeals(convertedMeals);
     } catch (err) {
-      console.error('Erro ao processar dados compartilhados:', err);
       setError('Erro ao processar os dados compartilhados. O formato pode estar inválido.');
     }
   }, [searchParams]);

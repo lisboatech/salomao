@@ -70,7 +70,6 @@ export function MealForm({ meal, onSubmit, onCancel }: MealFormProps) {
       dateTime: new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' })).toISOString()
     };
 
-    console.log('Enviando dados da refeição com data atual do Brasil:', submissionData);
     onSubmit(submissionData);
   };
 

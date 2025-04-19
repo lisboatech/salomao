@@ -32,13 +32,14 @@
   will-change: transform;
 }
 
-/* Efeito de vidro fosco (Glassmorphism - Estilo Behance) */
+/* Efeito de vidro fosco (Glassmorphism - Estilo Apple) */
 .glass {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.2));
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* Efeito de brilho suave (Glow) para interações */
@@ -47,6 +48,22 @@
 .focus\:glow:focus,
 .active\:glow:active {
   box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.4);
+}
+
+/* Animação de pulso para o botão */
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70%, 100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 /* Animação para o toast de compartilhamento */
@@ -61,6 +78,19 @@
   100% { opacity: 0; transform: translate(-50%, -20px); }
 }
 
+/* Animação de pulse para partículas */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
+/* Animação de brilho para o efeito de vidro */
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(-35deg); }
+  20%, 100% { transform: translateX(100%) rotate(-35deg); }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -70,6 +100,25 @@ body {
   line-height: 1.5;
   margin: 0;
   padding: 0;
+}
+
+/* Regra global para cursor pointer em elementos clicáveis */
+button,
+[role="button"],
+a,
+.clickable,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+.stack-button-primary,
+.stack-button-secondary,
+.stack-account-settings-sidebar-item,
+[aria-label="Adicionar um e-mail"],
+[aria-label="Habilitar MFA"],
+.stack-auth-button,
+.hover\:cursor-pointer:hover {
+  cursor: pointer !important;
 }
 
 /* Estilo para quando o modal está aberto */
@@ -197,4 +246,187 @@ body.modal-open {
   top: -50%;
   left: -50%;
   background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 100%);
+}
+
+/* Estilos personalizados para a página de configurações */
+:root {
+  --stack-sidebar-bg: rgba(0, 0, 0, 0.3);
+  --stack-sidebar-hover-bg: rgba(255, 255, 255, 0.1);
+  --stack-sidebar-active-bg: rgba(0, 122, 255, 0.2);
+  --stack-sidebar-active-border: #007AFF;
+  --stack-sidebar-text: rgba(255, 255, 255, 0.8);
+  --stack-sidebar-active-text: white;
+  --stack-content-bg: transparent;
+  --stack-input-bg: rgba(0, 0, 0, 0.4);
+  --stack-input-border: rgba(255, 255, 255, 0.1);
+  --stack-input-text: white;
+  --stack-button-primary-bg: #007AFF;
+  --stack-button-primary-text: white;
+  --stack-button-secondary-bg: rgba(255, 255, 255, 0.1);
+  --stack-button-secondary-text: white;
+  --stack-divider: rgba(255, 255, 255, 0.1);
+}
+
+/* Sobrescrever completamente o estilo do AccountSettings */
+
+/* Container principal */
+.stack-account-settings {
+  background-color: transparent !important;
+  color: white !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Sidebar */
+.stack-account-settings-sidebar {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 1.5rem !important;
+}
+
+/* Itens da sidebar */
+.stack-account-settings-sidebar-item {
+  margin-bottom: 0.5rem !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.stack-account-settings-sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.stack-account-settings-sidebar-item-active {
+  background-color: rgba(0, 122, 255, 0.2) !important;
+  border-left: 3px solid #007AFF !important;
+}
+
+/* Título da sidebar */
+.stack-account-settings-sidebar-title {
+  font-size: 1.2rem !important;
+  font-weight: 300 !important;
+  color: white !important;
+  margin-bottom: 1.5rem !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Área de conteúdo */
+.stack-account-settings-content {
+  background-color: transparent !important;
+  padding: 2rem !important;
+}
+
+/* Títulos das seções */
+.stack-account-settings-section-title {
+  font-size: 1.5rem !important;
+  font-weight: 300 !important;
+  color: white !important;
+  margin-bottom: 1.5rem !important;
+  letter-spacing: 0.05em !important;
+  background: linear-gradient(to right, white, rgba(255, 255, 255, 0.7)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Descrições */
+.stack-account-settings-description {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Formulários */
+.stack-account-settings-form {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Labels */
+.stack-account-settings-label {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 400 !important;
+}
+
+/* Estilos para os botões do AccountSettings */
+.stack-button-primary,
+button[type="submit"] {
+  background-color: var(--stack-button-primary-bg) !important;
+  color: var(--stack-button-primary-text) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+.stack-button-secondary {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.stack-button-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Estilos para os inputs do AccountSettings */
+.stack-input,
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.95rem !important;
+}
+
+.stack-input:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #007AFF !important;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2) !important;
+  outline: none !important;
+}
+
+/* Avatar */
+.stack-account-settings-avatar {
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Divisores */
+.stack-divider,
+hr {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  margin: 1.5rem 0 !important;
+}
+
+/* Mensagens de erro */
+.stack-error-message {
+  color: #FF453A !important;
+  background-color: rgba(255, 69, 58, 0.1) !important;
+  border: 1px solid rgba(255, 69, 58, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+}
+
+/* Mensagens de sucesso */
+.stack-success-message {
+  color: #30D158 !important;
+  background-color: rgba(48, 209, 88, 0.1) !important;
+  border: 1px solid rgba(48, 209, 88, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
 }

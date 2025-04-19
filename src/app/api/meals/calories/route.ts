@@ -15,38 +15,21 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const dateParam = searchParams.get('date') || new Date().toISOString().split('T')[0];
 
-    console.log('Buscando calorias para:', dateParam);
-
     try {
-      // Buscar todas as refeições para debug
-      const allMeals = await Meal.find({});
-      console.log(`Total de refeições no banco: ${allMeals.length}`);
+      // Buscar refeições do dia especificado
+      const startDate = new Date(dateParam);
+      startDate.setHours(0, 0, 0, 0);
 
-      // Filtrar manualmente as refeições do dia
-      const meals = allMeals.filter(meal => {
-        try {
-          // Converter a data da refeição para o formato YYYY-MM-DD no fuso horário do Brasil
-          const mealDate = new Date(meal.dateTime);
+      const endDate = new Date(dateParam);
+      endDate.setHours(23, 59, 59, 999);
 
-          // Ajustar para o fuso horário do Brasil (UTC-3)
-          const mealDateBR = new Date(mealDate.getTime() - (mealDate.getTimezoneOffset() * 60000));
-          const mealDateString = mealDateBR.toISOString().split('T')[0];
-
-          // Data alvo (a que estamos buscando)
-          const targetDateString = dateParam;
-
-          const isMatch = mealDateString === targetDateString;
-
-          console.log(`Comparando: ${mealDate.toISOString()} (${mealDateString}) com ${targetDateString} - Match: ${isMatch}`);
-
-          return isMatch;
-        } catch (err) {
-          console.error('Erro ao processar data da refeição:', err, meal);
-          return false;
+      // Buscar refeições dentro do intervalo de datas
+      const meals = await Meal.find({
+        dateTime: {
+          $gte: startDate.toISOString(),
+          $lte: endDate.toISOString()
         }
       });
-
-      console.log(`Encontradas ${meals.length} refeições para o dia ${dateParam}`);
 
       // Calcular total de calorias
       const totalCalories = meals.reduce((sum, meal) => {
@@ -80,7 +63,6 @@ export async function GET(request: NextRequest) {
         meals
       }, { headers });
     } catch (dbError) {
-      console.error('Erro ao processar dados do banco:', dbError);
       // Retornar um valor padrão em caso de erro
       return NextResponse.json({
         date: dateParam,
@@ -91,7 +73,6 @@ export async function GET(request: NextRequest) {
       }, { status: 200 }); // Retornar 200 mesmo com erro para não quebrar o frontend
     }
   } catch (error) {
-    console.error('Erro ao calcular calorias:', error);
     return NextResponse.json(
       {
         error: 'Erro ao calcular calorias',
