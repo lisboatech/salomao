@@ -4,6 +4,13 @@ import { SignIn } from "@stackframe/stack";
 import { useEffect, useState } from 'react';
 import { JaneLogo } from '@/components/ui/jane-logo';
 import { BackToHomeButton } from '@/components/ui/back-to-home-button';
+import dynamic from 'next/dynamic';
+
+// Importar o componente SignIn de forma dinâmica para evitar erros de SSR
+const DynamicSignIn = dynamic(
+  () => import('@stackframe/stack').then((mod) => mod.SignIn),
+  { ssr: false }
+);
 
 export default function CustomSignInPage() {
   const [mounted, setMounted] = useState(false);
@@ -56,7 +63,8 @@ export default function CustomSignInPage() {
           {/* Efeito de reflexo diagonal sutil */}
           <div className="absolute -inset-full h-[500%] w-[500%] rotate-[-35deg] bg-gradient-to-tr from-white/0 via-white/[0.03] to-white/0 animate-[shine_10s_ease-in-out_infinite] pointer-events-none"></div>
 
-          <SignIn />
+          {/* Usar o componente dinâmico para evitar erros de SSR */}
+          <DynamicSignIn />
         </div>
 
       {/* Botão de voltar para a landing page - estilo Apple */}
