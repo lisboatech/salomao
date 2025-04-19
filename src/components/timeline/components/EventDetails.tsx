@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Text, Float, MeshDistortMaterial, GradientTexture } from '@react-three/drei';
+import { Text, Float } from '@react-three/drei';
 
 // Componente para exibir detalhes de um evento selecionado
 const EventDetails = ({ meal, position = [0, 5, 0], color }: {
@@ -22,21 +22,13 @@ const EventDetails = ({ meal, position = [0, 5, 0], color }: {
       >
         <mesh>
           <boxGeometry args={[6, 3, 0.1]} />
-          <MeshDistortMaterial
+          <meshStandardMaterial
             color="#111111"
             roughness={0.1}
             metalness={0.8}
-            distort={0.2}
-            speed={1}
-          >
-            <GradientTexture
-              stops={[0, 1]}
-              colors={['#000000', '#111111']}
-              size={1024}
-            />
-          </MeshDistortMaterial>
+          />
         </mesh>
-        
+
         <Text
           position={[0, 0.8, 0.1]}
           fontSize={0.4}
@@ -48,7 +40,7 @@ const EventDetails = ({ meal, position = [0, 5, 0], color }: {
         >
           {meal.type}
         </Text>
-        
+
         <Text
           position={[0, 0.2, 0.1]}
           fontSize={0.35}
@@ -58,7 +50,7 @@ const EventDetails = ({ meal, position = [0, 5, 0], color }: {
         >
           {`${meal.calories} calorias`}
         </Text>
-        
+
         <Text
           position={[0, -0.4, 0.1]}
           fontSize={0.3}

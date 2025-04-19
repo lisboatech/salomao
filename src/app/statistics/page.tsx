@@ -1,11 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 // Removido import do router pois agora está no componente ThreeStatsView
 import ThreeStatsView from '@/components/stats/stats';
 import Loader from '@/components/ui/loader';
+import { useUser } from '@stackframe/stack';
 
-export default function StatisticsPage() {
+// Componente interno que usa useUser
+function StatisticsContent() {
+  // Proteger a página - redirecionar para login se não estiver autenticado
+  useUser({ or: 'redirect' });
+
   // Removido router
   const [meals, setMeals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -53,4 +58,13 @@ export default function StatisticsPage() {
   }
 
   return <ThreeStatsView meals={meals} />;
+}
+
+// Componente principal com Suspense boundary
+export default function StatisticsPage() {
+  return (
+    <Suspense fallback={<Loader message="Carregando estatísticas..." />}>
+      <StatisticsContent />
+    </Suspense>
+  );
 }

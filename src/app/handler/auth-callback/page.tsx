@@ -2,30 +2,15 @@
 
 import { useEffect, Suspense, useState } from 'react';
 import { useUser } from '@stackframe/stack';
+import { ClientProvider } from '@/components/auth/client-provider';
 
-// Componente interno que usa useUser de forma segura
-function AuthCallbackContent() {
-  const [isClient, setIsClient] = useState(false);
-
-  // Usar try/catch para evitar erros durante o build
-  let user = null;
-  try {
-    // Tentar obter o usuário apenas no cliente
-    if (typeof window !== 'undefined') {
-      user = useUser({ or: 'return' });
-    }
-  } catch (error) {
-    // Silenciar o erro durante o build
-  }
-
-  // Verificar se estamos no cliente
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+// Componente interno que usa useUser
+function AuthCallbackInner() {
+  const user = useUser({ or: 'return' });
 
   useEffect(() => {
     // Adicionar um pequeno atraso para garantir que a sessão seja processada
-    if (isClient && user) {
+    if (user) {
       const redirectTimer = setTimeout(() => {
         // Usar window.location.href para forçar um redirecionamento completo
         window.location.href = '/dashboard';
@@ -33,7 +18,7 @@ function AuthCallbackContent() {
 
       return () => clearTimeout(redirectTimer);
     }
-  }, [user, isClient]);
+  }, [user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black">
@@ -42,8 +27,31 @@ function AuthCallbackContent() {
   );
 }
 
+// Componente que usa ClientProvider
+function AuthCallbackContent() {
+  return (
+    <ClientProvider>
+      <AuthCallbackInner />
+    </ClientProvider>
+  );
+}
+
 // Componente principal com Suspense boundary
 export default function AuthCallback() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+      </div>
+    );
+  }
+
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-black">

@@ -3,6 +3,11 @@ import mongoose from 'mongoose';
 
 // Verificar se o modelo já existe para evitar redefinição
 const MealSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: [true, 'ID do usuário é obrigatório'],
+    index: true
+  },
   name: {
     type: String,
     required: [true, 'Por favor, adicione um nome'],

@@ -88,10 +88,13 @@ export function VoiceButton() {
   // Renderizar o botão de voz
   return (
     <div className="flex flex-col items-center justify-center relative">
-      {/* Esfera de visualização com efeitos de voz - posicionada para alinhar com os ícones */}
+      {/* Esfera de visualização com efeitos de voz - responsiva */}
       <div className="flex items-center justify-center">
         <VoiceSphere isConnected={false} agentState="disconnected" />
       </div>
+
+      {/* Reflexo sutil na parte superior - estilo Apple */}
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[60%] h-[30%] bg-gradient-to-b from-white/5 to-transparent rounded-full blur-md opacity-20"></div>
 
       {/* Botão de ativação de voz - posicionado abaixo da esfera */}
       {/*

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import HeadScript from "@/components/ui/head-script";
+import TiltEffect from "@/components/ui/tilt-effect";
+import { Suspense } from "react";
+import HydrationFix from "@/components/ui/hydration-fix";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +30,11 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
+        suppressHydrationWarning
       >
         <HeadScript />
+        <TiltEffect />
+        <HydrationFix />
         {children}
       </body>
     </html>

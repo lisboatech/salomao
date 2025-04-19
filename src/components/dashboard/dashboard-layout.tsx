@@ -3,6 +3,7 @@ import { JaneLogo } from '@/components/ui/jane-logo';
 import { FloatingNav } from '@/components/ui/floating-nav';
 import { VoiceButton } from '@/components/voice/voice-button';
 import { Meal } from './dashboard-hooks';
+import { CustomUserButton } from '@/components/ui/custom-user-button';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -36,24 +37,10 @@ export function DashboardLayout({
             <div className="hover:opacity-80 transition-opacity duration-300">
               <JaneLogo />
             </div>
-            <a href="/" className="bg-[#F5F5F7] px-3 xs:px-4 sm:px-5 py-1.5 xs:py-2 rounded-full text-xs sm:text-sm font-medium tracking-wider inline-flex items-center gap-1 sm:gap-2 hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group">
-              {/* Efeito metálico sutil */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-black/5"></div>
-
-              {/* Borda sutil */}
-              <div className="absolute inset-0 rounded-full border border-white/40"></div>
-
-              {/* Sombra interna */}
-              <div className="absolute inset-0 shadow-[inset_0_1px_1px_rgba(0,0,0,0.1)]"></div>
-
-              {/* Seta minimalista estilo Apple (invertida) */}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 transform group-hover:-translate-x-0.5 transition-transform duration-300">
-                <path d="M19 12H5" stroke="#000000" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M11 6L5 12L11 18" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-
-              <span className="relative z-10 text-[#000000] font-medium tracking-wider text-xs sm:text-sm">VOLTAR</span>
-            </a>
+            <div className="flex items-center">
+              {/* Botão de usuário para logout e configurações */}
+              <CustomUserButton showUserInfo={false} />
+            </div>
           </header>
         </div>
 

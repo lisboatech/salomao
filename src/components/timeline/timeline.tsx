@@ -1,11 +1,35 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Component, ErrorInfo, ReactNode } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { useRouter } from 'next/navigation';
 import { BackButton } from '@/components/ui/back-button';
 import { ShareButton } from '@/components/ui/share-button';
+
+// Componente ErrorBoundary para capturar erros na renderização
+class ErrorBoundary extends Component<{ children: ReactNode, fallback: ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: ReactNode, fallback: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(_: Error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Erro na renderização 3D:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
+}
 
 // Componentes separados
 import TimeEvent from './components/TimeEvent';
@@ -123,6 +147,7 @@ const TimelineFuturistic = ({ meals = [], isSharedView = false }) => {
     };
   }, [meals]);
 
+
   return (
     <div className="w-full h-screen bg-black relative">
       {/* Toast de compartilhamento */}
@@ -174,14 +199,15 @@ const TimelineFuturistic = ({ meals = [], isSharedView = false }) => {
       <MealTypeLegend colors={colors} />
 
       {/* Cena 3D */}
-      <Canvas
-        camera={{ position: [0, 5, 15], fov: 60 }}
-        style={{ background: 'black' }}
-        gl={{ antialias: true }}
-        dpr={[1, 2]}
-      >
-        {/* Ambiente */}
-        <Environment preset="night" />
+      <ErrorBoundary fallback={<div className="w-full h-full flex items-center justify-center text-white">Erro ao renderizar visualização 3D</div>}>
+        <Canvas
+          camera={{ position: [0, 5, 15], fov: 60 }}
+          style={{ background: 'black' }}
+          gl={{ antialias: true }}
+          dpr={[1, 2]}
+        >
+        {/* Ambiente - comentado para evitar problemas */}
+        {/* <Environment preset="night" /> */}
 
         {/* Luzes */}
         <ambientLight intensity={0.3} />
@@ -227,6 +253,7 @@ const TimelineFuturistic = ({ meals = [], isSharedView = false }) => {
           />
         )}
       </Canvas>
+      </ErrorBoundary>
     </div>
   );
 };

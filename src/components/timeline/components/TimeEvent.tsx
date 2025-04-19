@@ -17,27 +17,31 @@ const TimeEvent = ({ position, color, mealType, calories, date, index, onClick }
 }) => {
   const sphereRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
-  
+
   // Efeito de animação para entrada e hover
   useFrame((state) => {
-    if (sphereRef.current) {
-      // Efeito de pulsação
-      const pulse = Math.sin(state.clock.getElapsedTime() * 2 + index) * 0.05 + 1;
-      sphereRef.current.scale.set(pulse, pulse, pulse);
-      
-      // Efeito de hover
-      if (hovered) {
-        sphereRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(
-          sphereRef.current.material.emissiveIntensity,
-          1.5,
-          0.1
-        );
-      } else {
-        sphereRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(
-          sphereRef.current.material.emissiveIntensity,
-          0.8,
-          0.1
-        );
+    if (sphereRef.current && sphereRef.current.material) {
+      try {
+        // Efeito de pulsação
+        const pulse = Math.sin(state.clock.getElapsedTime() * 2 + index) * 0.05 + 1;
+        sphereRef.current.scale.set(pulse, pulse, pulse);
+
+        // Efeito de hover
+        if (hovered) {
+          sphereRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(
+            sphereRef.current.material.emissiveIntensity || 0.8,
+            1.5,
+            0.1
+          );
+        } else {
+          sphereRef.current.material.emissiveIntensity = THREE.MathUtils.lerp(
+            sphereRef.current.material.emissiveIntensity || 0.8,
+            0.8,
+            0.1
+          );
+        }
+      } catch (error) {
+        console.error('Erro no efeito de animação:', error);
       }
     }
   });
@@ -46,10 +50,10 @@ const TimeEvent = ({ position, color, mealType, calories, date, index, onClick }
   const formatDate = (dateString: string) => {
     try {
       if (!dateString) return '';
-      
+
       const date = new Date(dateString);
       if (isNaN(date.getTime())) return '';
-      
+
       return date.toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'short'

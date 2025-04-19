@@ -3,53 +3,26 @@
 import { useUser, useStackApp } from '@stackframe/stack';
 import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ClientProvider } from '@/components/auth/client-provider';
 
-// Componente interno que usa useUser de forma segura
-function ExploreButtonContent() {
+// Componente interno que usa useUser e useStackApp
+function ExploreButtonInner() {
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
-
-  // Usar try/catch para evitar erros durante o build
-  let user = null;
-  let app = null;
-
-  try {
-    // Tentar obter o usuário e o app apenas no cliente
-    if (typeof window !== 'undefined') {
-      user = useUser({ or: 'return' });
-      app = useStackApp();
-    }
-  } catch (error) {
-    // Silenciar o erro durante o build
-  }
-
-  // Verificar se estamos no cliente
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const user = useUser({ or: 'return' });
+  const app = useStackApp();
 
   const handleClick = () => {
-    if (isClient) {
-      if (user) {
-        // Se o usuário estiver autenticado, redirecionar para o dashboard
-        router.push('/dashboard');
-      } else {
-        // Se o usuário não estiver autenticado, redirecionar para a página de login
-        if (app) {
-          try {
-            app.redirectToSignIn();
-          } catch (error) {
-            // Fallback se o redirecionamento falhar
-            router.push('/sign-in');
-          }
-        } else {
-          // Fallback se o app não estiver disponível
-          router.push('/sign-in');
-        }
-      }
+    if (user) {
+      // Se o usuário estiver autenticado, redirecionar para o dashboard
+      router.push('/dashboard');
     } else {
-      // Fallback para o build estático
-      router.push('/sign-in');
+      // Se o usuário não estiver autenticado, redirecionar para a página de login
+      try {
+        app.redirectToSignIn();
+      } catch (error) {
+        // Fallback se o redirecionamento falhar
+        router.push('/sign-in');
+      }
     }
   };
 
@@ -78,8 +51,31 @@ function ExploreButtonContent() {
   );
 }
 
+// Componente que usa ClientProvider
+function ExploreButtonContent() {
+  return (
+    <ClientProvider>
+      <ExploreButtonInner />
+    </ClientProvider>
+  );
+}
+
 // Componente principal com Suspense boundary
 export function ExploreButton() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <button className="bg-[#F5F5F7] px-10 py-3 rounded-full text-lg font-medium tracking-wider inline-flex items-center gap-3 relative overflow-hidden cursor-pointer">
+        <span className="relative z-10 text-[#000000] font-medium tracking-widest">EXPLORE</span>
+      </button>
+    );
+  }
+
   return (
     <Suspense fallback={
       <button className="bg-[#F5F5F7] px-10 py-3 rounded-full text-lg font-medium tracking-wider inline-flex items-center gap-3 relative overflow-hidden cursor-pointer">

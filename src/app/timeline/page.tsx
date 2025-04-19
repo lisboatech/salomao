@@ -1,11 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 // Removido import do router pois agora está no componente TimelineFuturistic
 import TimelineFuturistic from '@/components/timeline/timeline';
 import Loader from '@/components/ui/loader';
+import { useUser } from '@stackframe/stack';
 
-export default function TimelinePage() {
+// Componente interno que usa useUser
+function TimelineContent() {
+  // Proteger a página - redirecionar para login se não estiver autenticado
+  useUser({ or: 'redirect' });
+
   // Removido router
   const [meals, setMeals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,4 +57,13 @@ export default function TimelinePage() {
   }
 
   return <TimelineFuturistic meals={meals} />;
+}
+
+// Componente principal com Suspense boundary
+export default function TimelinePage() {
+  return (
+    <Suspense fallback={<Loader message="Carregando cronologia..." />}>
+      <TimelineContent />
+    </Suspense>
+  );
 }
