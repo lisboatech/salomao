@@ -4,6 +4,7 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
-    "MONGODB_URI": "mongodb+srv://lisboatech:Jpd0NgGIkz7PYBHX@jane.1ugnrns.mongodb.net/jane-meals?retryWrites=true&w=majority&appName=jane"
+    "MONGODB_URI": "mongodb+srv://lisboatech:Jpd0NgGIkz7PYBHX@jane.1ugnrns.mongodb.net/jane-meals?retryWrites=true&w=majority&appName=jane",
+    "STACK_SECRET_SERVER_KEY": "sk_live_Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9"
   }
 }
