@@ -5,6 +5,7 @@ import HeadScript from "@/components/ui/head-script";
 import TiltEffect from "@/components/ui/tilt-effect";
 import { Suspense } from "react";
 import HydrationFix from "@/components/ui/hydration-fix";
+import { StackRootProvider } from "@/components/auth/stack-root-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,9 @@ export default function RootLayout({
         <HeadScript />
         <TiltEffect />
         <HydrationFix />
-        {children}
+        <StackRootProvider>
+          {children}
+        </StackRootProvider>
       </body>
     </html>
   );
