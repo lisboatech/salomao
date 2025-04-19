@@ -5,12 +5,24 @@ import { useEffect, useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/ui/loader';
 import { BackButton } from '@/components/ui/back-button';
+import { ClientProvider } from '@/components/auth/client-provider';
 
 // Componente interno que usa useUser
-function AccountContent() {
-  // Proteger a página - redirecionar para login se não estiver autenticado
-  useUser({ or: 'redirect' });
+function AccountInner() {
+  const user = useUser({ or: 'return' });
   const router = useRouter();
+
+  // Redirecionar para login se não estiver autenticado
+  useEffect(() => {
+    if (user === null) {
+      router.push('/sign-in');
+    }
+  }, [user, router]);
+
+  // Se não houver usuário, mostrar loader
+  if (user === null) {
+    return <Loader message="Verificando autenticação..." />;
+  }
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -58,8 +70,27 @@ function AccountContent() {
   );
 }
 
+// Componente que usa ClientProvider
+function AccountContent() {
+  return (
+    <ClientProvider>
+      <AccountInner />
+    </ClientProvider>
+  );
+}
+
 // Componente principal com Suspense boundary
 export default function AccountPage() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <Loader message="Carregando configurações..." />;
+  }
+
   return (
     <Suspense fallback={<Loader message="Carregando configurações..." />}>
       <AccountContent />
