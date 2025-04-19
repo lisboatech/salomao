@@ -4,12 +4,8 @@ import { useEffect, useState, Suspense } from 'react';
 // Removido import do router pois agora está no componente TimelineFuturistic
 import TimelineFuturistic from '@/components/timeline/timeline';
 import Loader from '@/components/ui/loader';
-import { useUser } from '@stackframe/stack';
 
-// Componente interno que usa useUser
 function TimelineContent() {
-  // Proteger a página - redirecionar para login se não estiver autenticado
-  useUser({ or: 'redirect' });
 
   // Removido router
   const [meals, setMeals] = useState<any[]>([]);

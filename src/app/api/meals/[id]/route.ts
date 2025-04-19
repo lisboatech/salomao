@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import Meal from '@/models/Meal';
 import mongoose from 'mongoose';
-import { stackServerApp } from '@/stack';
 
 // Função auxiliar para validar ID do MongoDB
 function isValidObjectId(id: string) {
@@ -15,11 +14,6 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Verificar se o usuário está autenticado
-    const user = await stackServerApp.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
-    }
 
     await dbConnect();
 
@@ -33,8 +27,8 @@ export async function GET(
       );
     }
 
-    // Buscar refeição e verificar se pertence ao usuário
-    const meal = await Meal.findOne({ _id: id, userId: user.id });
+    // Buscar refeição
+    const meal = await Meal.findOne({ _id: id });
 
     // Verificar se a refeição existe
     if (!meal) {
@@ -59,11 +53,6 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Verificar se o usuário está autenticado
-    const user = await stackServerApp.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
-    }
 
     await dbConnect();
 
@@ -119,11 +108,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Verificar se o usuário está autenticado
-    const user = await stackServerApp.getUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
-    }
 
     await dbConnect();
 
@@ -137,8 +121,8 @@ export async function DELETE(
       );
     }
 
-    // Verificar se a refeição existe e pertence ao usuário
-    const existingMeal = await Meal.findOne({ _id: id, userId: user.id });
+    // Verificar se a refeição existe
+    const existingMeal = await Meal.findOne({ _id: id });
     if (!existingMeal) {
       return NextResponse.json(
         { error: 'Refeição não encontrada' },

@@ -1,31 +1,10 @@
 'use client';
 
 import { useEffect, useState, Suspense } from 'react';
-import { useRouter } from 'next/navigation';
-// Removido import do router pois agora está no componente ThreeStatsView
 import ThreeStatsView from '@/components/stats/stats';
 import Loader from '@/components/ui/loader';
-import { useUser } from '@stackframe/stack';
-import { ClientProvider } from '@/components/auth/client-provider';
 
-// Componente interno que usa useUser
-function StatisticsInner() {
-  const router = useRouter();
-  const user = useUser({ or: 'return' });
-
-  // Redirecionar para login se não estiver autenticado
-  useEffect(() => {
-    if (user === null) {
-      router.push('/sign-in');
-    }
-  }, [user, router]);
-
-  // Se não houver usuário, mostrar loader
-  if (user === null) {
-    return <Loader message="Verificando autenticação..." />;
-  }
-
-  // Removido router
+function StatisticsContent() {
   const [meals, setMeals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -74,27 +53,8 @@ function StatisticsInner() {
   return <ThreeStatsView meals={meals} />;
 }
 
-// Componente que usa ClientProvider
-function StatisticsContent() {
-  return (
-    <ClientProvider>
-      <StatisticsInner />
-    </ClientProvider>
-  );
-}
-
 // Componente principal com Suspense boundary
 export default function StatisticsPage() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <Loader message="Carregando estatísticas..." />;
-  }
-
   return (
     <Suspense fallback={<Loader message="Carregando estatísticas..." />}>
       <StatisticsContent />

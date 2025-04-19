@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useUser } from '@stackframe/stack';
 
 interface Meal {
   _id: string;
@@ -13,9 +12,6 @@ interface Meal {
 }
 
 export function useMeals() {
-  // Obter o usuário autenticado
-  const user = useUser();
-
   const [meals, setMeals] = useState<Meal[]>([]);
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
@@ -28,13 +24,11 @@ export function useMeals() {
   const [selectedFilterType, setSelectedFilterType] = useState<string | null>(null);
   const [filteredMealsByType, setFilteredMealsByType] = useState<Meal[]>([]);
 
-  // Buscar refeições ao carregar a página ou quando o usuário mudar
+  // Buscar refeições ao carregar a página
   useEffect(() => {
-    if (user) {
-      fetchMeals();
-      fetchCalories();
-    }
-  }, [user]);
+    fetchMeals();
+    fetchCalories();
+  }, []);
 
   // Inicializar filteredMeals com meals e calcular calorias
   useEffect(() => {

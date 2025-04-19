@@ -1,29 +1,12 @@
 'use client';
 
-import { useUser, useStackApp } from '@stackframe/stack';
-import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ClientProvider } from '@/components/auth/client-provider';
 
-// Componente interno que usa useUser e useStackApp
-function ExploreButtonInner() {
+export function ExploreButton() {
   const router = useRouter();
-  const user = useUser({ or: 'return' });
-  const app = useStackApp();
 
   const handleClick = () => {
-    if (user) {
-      // Se o usuário estiver autenticado, redirecionar para o dashboard
-      router.push('/dashboard');
-    } else {
-      // Se o usuário não estiver autenticado, redirecionar para a página de login
-      try {
-        app.redirectToSignIn();
-      } catch (error) {
-        // Fallback se o redirecionamento falhar
-        router.push('/sign-in');
-      }
-    }
+    router.push('/dashboard');
   };
 
   return (
@@ -48,41 +31,5 @@ function ExploreButtonInner() {
         <path d="M13 6L19 12L13 18" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </button>
-  );
-}
-
-// Componente que usa ClientProvider
-function ExploreButtonContent() {
-  return (
-    <ClientProvider>
-      <ExploreButtonInner />
-    </ClientProvider>
-  );
-}
-
-// Componente principal com Suspense boundary
-export function ExploreButton() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <button className="bg-[#F5F5F7] px-10 py-3 rounded-full text-lg font-medium tracking-wider inline-flex items-center gap-3 relative overflow-hidden cursor-pointer">
-        <span className="relative z-10 text-[#000000] font-medium tracking-widest">EXPLORE</span>
-      </button>
-    );
-  }
-
-  return (
-    <Suspense fallback={
-      <button className="bg-[#F5F5F7] px-10 py-3 rounded-full text-lg font-medium tracking-wider inline-flex items-center gap-3 relative overflow-hidden cursor-pointer">
-        <span className="relative z-10 text-[#000000] font-medium tracking-widest">EXPLORE</span>
-      </button>
-    }>
-      <ExploreButtonContent />
-    </Suspense>
   );
 }

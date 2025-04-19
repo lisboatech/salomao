@@ -1,9 +1,7 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
 import { JaneLogo } from '../ui/jane-logo'
-import { AuthButton } from '../auth/auth-button'
 
 export default function Header() {
   return (
@@ -12,8 +10,6 @@ export default function Header() {
       <div className="hover:opacity-80 transition-opacity duration-300">
         <JaneLogo />
       </div>
-      {/* Botões de autenticação */}
-      <AuthButton />
     </header>
   )
 }

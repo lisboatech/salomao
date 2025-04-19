@@ -5,29 +5,10 @@ import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
 import { MealFilterButtons } from '@/components/dashboard/meal-filter-buttons';
 import { MealEditModal } from '@/components/dashboard/meal-edit-modal';
 import { FilterModal } from '@/components/dashboard/filter-modal';
-import { useUser } from '@stackframe/stack';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import Loader from '@/components/ui/loader';
-import { useRouter } from 'next/navigation';
-import { ClientProvider } from '@/components/auth/client-provider';
 
-// Componente interno que usa useUser
-function DashboardInner() {
-  const router = useRouter();
-  const user = useUser({ or: 'return' });
-
-  // Redirecionar para login se não estiver autenticado
-  useEffect(() => {
-    if (user === null) {
-      router.push('/sign-in');
-    }
-  }, [user, router]);
-
-  // Se não houver usuário, mostrar loader
-  if (user === null) {
-    return <Loader message="Verificando autenticação..." />;
-  }
-
+function DashboardContent() {
   const {
     filteredMeals,
     loading,
@@ -87,27 +68,8 @@ function DashboardInner() {
   );
 }
 
-// Componente que usa ClientProvider
-function DashboardContent() {
-  return (
-    <ClientProvider>
-      <DashboardInner />
-    </ClientProvider>
-  );
-}
-
 // Componente principal com Suspense boundary
 export default function DashboardPage() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <Loader message="Carregando dashboard..." />;
-  }
-
   return (
     <Suspense fallback={<Loader message="Carregando dashboard..." />}>
       <DashboardContent />
