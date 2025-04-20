@@ -27,7 +27,7 @@ export default function HeroSection() {
 
           {/* Descrição */}
           <p className="description text-base font-light tracking-wide text-white/70 mb-7 max-w-sm leading-relaxed">
-            Assistente de IA com interface 3D imersiva que analisa dados empresariais, identifica oportunidades e fornece insights estratégicos para decisões mais precisas.
+            Assistente IA com interface 3D imersiva que analisa dados empresariais, identifica oportunidades e fornece insights estratégicos para decisões mais precisas.
           </p>
 
           {/* Botão */}
