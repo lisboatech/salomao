@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SALOMÃO - Inteligência Empresarial",
-  description: "Assistente de IA com interface 3D imersiva que analisa dados empresariais, identifica oportunidades e fornece insights estratégicos para decisões mais precisas.",
+  title: "Salomão - Assistente Empresarial",
+  description: "Assistente IA com interface 3D imersiva que analisa dados empresariais, identifica oportunidades e fornece insights estratégicos para decisões mais precisas.",
 };
 
 export default function RootLayout({
