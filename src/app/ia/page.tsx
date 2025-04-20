@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { SalomaoLogo } from '@/components/ui/salomao-logo';
 import { VisualizationSphere } from '@/components/ui/sphere';
 import { LiveKitButton } from '@/components/livekit/livekit-button';
+import { BackToLandingButton } from '@/components/ui/back-to-landing-button';
 import { Suspense } from 'react';
 import Loader from '@/components/ui/loader';
 
@@ -20,9 +21,9 @@ function DashboardContent() {
           </div>
         </div>
 
-        {/* Texto de Inteligência Empresarial - posicionado no canto superior direito */}
+        {/* Botão de voltar para a landing page - posicionado no canto superior direito */}
         <div className="absolute top-4 right-4 z-10">
-          <div className="text-sm text-white/70">Inteligência Empresarial</div>
+          <BackToLandingButton />
         </div>
 
         {/* Layout premium estilo Apple: Esfera e controles */}

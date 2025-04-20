@@ -85,6 +85,13 @@ export function LiveKitButton({ isConnected, onConnectionChange }: LiveKitButton
 
   return (
     <>
+      {/* Indicador de status - movido para cima do botão */}
+      {isConnecting && (
+        <div className="mb-4 text-sm text-white/70 text-center">
+          Conectando...
+        </div>
+      )}
+
       {/* Botão de ativação de voz */}
       <button
         onClick={isConnected ? disconnectFromLiveKit : connectToLiveKit}
@@ -100,13 +107,6 @@ export function LiveKitButton({ isConnected, onConnectionChange }: LiveKitButton
           {isConnected ? 'Desconectar' : 'Conectar'}
         </span>
       </button>
-
-      {/* Indicador de status */}
-      {isConnecting && (
-        <div className="mt-4 text-sm text-white/70">
-          Conectando...
-        </div>
-      )}
 
       {/* Componente LiveKit com RoomContext - apenas para renderizar o áudio */}
       <RoomContext.Provider value={room}>
