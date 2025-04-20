@@ -1,28 +1,23 @@
-# noah - Aplicação de Gerenciamento de Refeições
+# Salomão - Inteligência Empresarial
 
-## 🍽️ Sobre o Projeto
+## 💡 Sobre o Projeto
 
-noah é uma aplicação full-stack para gerenciamento de refeições diárias, desenvolvida com Next.js (App Router), MongoDB Atlas e implantada na Vercel. A aplicação permite aos usuários registrar, visualizar, editar e excluir refeições, além de fornecer visualizações estatísticas em 3D e uma interface futurista.
-
-## 🚀 Link do Deploy
-
-[Link da aplicação em produção](https://noah-meal-tracker.vercel.app) <!-- Substitua este link pelo seu link real após o deploy -->
+Salomão é uma aplicação de inteligência empresarial com interface 3D imersiva, desenvolvida com Next.js, React e Three.js. A plataforma analisa dados empresariais, identifica oportunidades e fornece insights estratégicos para decisões mais precisas.
 
 ## ✨ Funcionalidades
 
-- CRUD completo de refeições (criar, visualizar, editar e excluir)
-- Filtro por tipo de refeição (Café da manhã, Almoço, Lanche da tarde, Janta)
-- Dashboard interativo com visualização de refeições
-- Contador de calorias diárias
-- Visualização estatística em 3D
-- Cronologia alimentar
-- Interface futurista e minimalista 
+- Visualização 3D de dados empresariais
+- Análise preditiva avançada
+- Assistente de decisões com IA
+- Interface ultra-futurista e minimalista
+- Integração com diversas fontes de dados
+- Agente de voz com IA para consultas
 
-## 🛠️ Tecnologias Utilizadas
+## 🔧 Tecnologias Utilizadas
 
 - **Frontend**: Next.js 15, React 19, TailwindCSS 4, Three.js
 - **Backend**: API Routes do Next.js
-- **Banco de Dados**: MongoDB Atlas
+- **IA**: Gemini 2.0, ElevenLabs, Deepgram
 - **Deploy**: Vercel
 
 ## 🧰 Como Executar Localmente
@@ -32,10 +27,7 @@ noah é uma aplicação full-stack para gerenciamento de refeições diárias, d
    ```bash
    npm install
    ```
-3. Configure as variáveis de ambiente criando um arquivo `.env.local` com:
-   ```
-   MONGODB_URI=sua_string_de_conexao_mongodb
-   ```
+3. Configure as variáveis de ambiente criando um arquivo `.env.local`
 4. Execute o servidor de desenvolvimento:
    ```bash
    npm run dev
