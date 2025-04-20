@@ -39,6 +39,12 @@ module.exports = {
           700: "#3F3F3F",
           800: "#2A2A2A",
           900: "#1A1A1A",
+        },
+        "gold": {
+          primary: "#C0A080",     // Dourado elegante (Salomão)
+          light: "#D4B78F",       // Dourado claro complementar
+          dark: "#A89070",        // Dourado escuro sutil
+          muted: "rgba(192, 160, 128, 0.5)",
         }
       },
       fontFamily: {

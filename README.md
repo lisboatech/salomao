@@ -1,12 +1,12 @@
-# Jane - Aplicação de Gerenciamento de Refeições
+# noah - Aplicação de Gerenciamento de Refeições
 
 ## 🍽️ Sobre o Projeto
 
-Jane é uma aplicação full-stack para gerenciamento de refeições diárias, desenvolvida com Next.js (App Router), MongoDB Atlas e implantada na Vercel. A aplicação permite aos usuários registrar, visualizar, editar e excluir refeições, além de fornecer visualizações estatísticas em 3D e uma interface futurista.
+noah é uma aplicação full-stack para gerenciamento de refeições diárias, desenvolvida com Next.js (App Router), MongoDB Atlas e implantada na Vercel. A aplicação permite aos usuários registrar, visualizar, editar e excluir refeições, além de fornecer visualizações estatísticas em 3D e uma interface futurista.
 
 ## 🚀 Link do Deploy
 
-[Link da aplicação em produção](https://jane-meal-tracker.vercel.app) <!-- Substitua este link pelo seu link real após o deploy -->
+[Link da aplicação em produção](https://noah-meal-tracker.vercel.app) <!-- Substitua este link pelo seu link real após o deploy -->
 
 ## ✨ Funcionalidades
 

@@ -1,4 +1,4 @@
-// jane-front/src/components/ui/modal.tsx
+// noah-front/src/components/ui/modal.tsx
 'use client';
 
 import React, { useEffect, useRef } from 'react';
@@ -46,8 +46,8 @@ export function Modal({ isOpen, onClose, children, title, className }: ModalProp
           className
         )}
       >
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-purple-500/10 to-transparent pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-t from-blue-500/10 to-transparent pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#C0A080]/10 to-transparent pointer-events-none"></div>
+        <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-t from-[#C0A080]/10 to-transparent pointer-events-none"></div>
 
         <div className="relative flex justify-between items-center mb-6 pb-3 border-b border-white/10">
           {title && (

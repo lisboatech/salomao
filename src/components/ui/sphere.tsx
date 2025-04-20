@@ -44,21 +44,32 @@ export const VisualizationSphere = () => {
       const geometry = new THREE.SphereGeometry(1, 64, 64);
       const positions = [];
 
-      // Cores premium para a esfera - estilo Apple com gradiente sutil
+      // Cores premium para a esfera - estilo Glória do Rei Salomão com gradiente dourado elegante
       const createGradientColors = (numPoints: number) => {
         const colorArray = [];
-        const primaryColor = new THREE.Color('#BF5AF2'); // Roxo Apple
-        const secondaryColor = new THREE.Color('#0A84FF'); // Azul Apple
+        const primaryColor = new THREE.Color('#C0A080');    // Dourado suave e elegante
+        const secondaryColor = new THREE.Color('#D4B78F');  // Dourado claro complementar
+        const accentColor = new THREE.Color('#A89070');     // Dourado escuro sutil
 
         // Cria um gradiente de cores para os pontos
         for (let i = 0; i < numPoints; i++) {
-          // Cria uma mistura entre as duas cores baseada na posição
-          // Favorece a cor roxa (80% roxo, 20% azul em média)
-          const mixFactor = Math.random() * 0.4; // Limita a mistura para manter predominância do roxo
-          const color = new THREE.Color().lerpColors(primaryColor, secondaryColor, mixFactor);
+          // Determina qual par de cores usar para o gradiente
+          const useAccent = Math.random() > 0.85; // 15% de chance de usar o acento
 
-          // Adiciona uma pequena variação de brilho para alguns pontos
-          const brightness = 0.9 + Math.random() * 0.2;
+          // Cria uma mistura entre as cores baseada na posição
+          const mixFactor = Math.random() * 0.5; // Menos variação para efeito mais sutil
+
+          let color;
+          if (useAccent) {
+            // Mistura entre dourado principal e dourado escuro para alguns pontos
+            color = new THREE.Color().lerpColors(primaryColor, accentColor, mixFactor);
+          } else {
+            // Mistura entre dourado principal e dourado claro para a maioria dos pontos
+            color = new THREE.Color().lerpColors(primaryColor, secondaryColor, mixFactor);
+          }
+
+          // Adiciona variação de brilho para efeito metálico elegante
+          const brightness = 0.9 + Math.random() * 0.2; // Variação sutil para efeito refinado
           color.multiplyScalar(brightness);
 
           colorArray.push(color.r, color.g, color.b);
@@ -86,10 +97,10 @@ export const VisualizationSphere = () => {
       pointGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
       const pointsMaterial = new THREE.PointsMaterial({
-        size: 0.01, // Pontos menores para um visual mais premium
+        size: 0.01, // Pontos menores para um visual mais refinado
         vertexColors: true,
         transparent: true,
-        opacity: 0.8, // Mais transparente
+        opacity: 0.8, // Transparência equilibrada para elegância
         sizeAttenuation: true,
       });
 
@@ -97,9 +108,9 @@ export const VisualizationSphere = () => {
       scene.add(sphere);
       sphereRef.current = sphere;
 
-      // Variáveis para animação suave estilo Apple
+      // Variáveis para animação suave estilo Glória de Salomão
       let time = 0;
-      let rotationSpeed = 0.0003; // Rotação mais lenta e elegante
+      let rotationSpeed = 0.0002; // Rotação ainda mais lenta e majestosa
 
       // Animation loop
       const animate = () => {
@@ -111,8 +122,8 @@ export const VisualizationSphere = () => {
           sphereRef.current.rotation.x += rotationSpeed;
           sphereRef.current.rotation.y += rotationSpeed * 1.2;
 
-          // Efeito de respiração muito sutil - estilo Apple
-          const breatheFactor = 1 + Math.sin(time * 0.3) * 0.005;
+          // Efeito de respiração sutil - estilo majestoso
+          const breatheFactor = 1 + Math.sin(time * 0.25) * 0.008;
           sphereRef.current.scale.set(breatheFactor, breatheFactor, breatheFactor);
         }
         renderer.render(scene, camera);
@@ -148,5 +159,9 @@ export const VisualizationSphere = () => {
     return cleanup;
   }, [pathname]); // Adiciona pathname como dependência
 
-  return <div ref={containerRef} className="w-[450px] h-[450px] mb-2 md:w-[450px] md:h-[450px] sm:w-[400px] sm:h-[400px]" key={pathname} />;
+  // Ajusta o tamanho da esfera para a página de upload
+  const isUploadPage = pathname === '/upload';
+  const sphereSize = isUploadPage ? "w-[500px] h-[500px]" : "w-[450px] h-[450px]";
+
+  return <div ref={containerRef} className="w-[600px] h-[600px] md:w-[500px] md:h-[500px] sm:w-[400px] sm:h-[400px]" key={pathname} />;
 };

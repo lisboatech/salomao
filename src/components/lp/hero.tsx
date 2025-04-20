@@ -22,13 +22,12 @@ export default function HeroSection() {
 
           {/* Título */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extralight tracking-tight mb-5 uppercase bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-            Gerencie<br/>sua Nutrição
+            Inteligência<br/> Empresarial
           </h1>
 
           {/* Descrição */}
           <p className="description text-base font-light tracking-wide text-white/70 mb-7 max-w-sm leading-relaxed">
-            Jane: A forma mais inteligente e fluida de registrar suas refeições,
-            entender seus hábitos e alcançar seus objetivos alimentares.
+            Assistente de IA com interface 3D imersiva que analisa dados empresariais, identifica oportunidades e fornece insights estratégicos para decisões mais precisas.
           </p>
 
           {/* Botão */}
@@ -42,8 +41,8 @@ export default function HeroSection() {
       <div className="sphere-3d absolute top-[120px] right-[5%] md:right-[10%] lg:right-[15%] w-full h-screen pointer-events-none">
         <div className="relative h-full w-full flex items-center justify-center mt-0">
           <div className="relative scale-125">
-            {/* Efeito de brilho em torno da esfera */}
-            <div className="absolute -inset-4 bg-white/[0.02] blur-3xl rounded-full opacity-50"></div>
+            {/* Efeito de brilho em torno da esfera - atualizado para dourado elegante */}
+            <div className="absolute -inset-4 bg-[#C0A080]/[0.03] blur-3xl rounded-full opacity-50"></div>
             <VisualizationSphere />
           </div>
         </div>

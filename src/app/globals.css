@@ -32,22 +32,24 @@
   will-change: transform;
 }
 
-/* Efeito de vidro fosco (Glassmorphism - Estilo Apple) */
+/* Efeito de vidro fosco (Glassmorphism - Estilo Salomão) */
 .glass {
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(212, 175, 55, 0.05);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.1);
   border-radius: 16px;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.2));
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(to bottom, rgba(255, 215, 0, 0.03), rgba(212, 175, 55, 0.1));
+  box-shadow: 0 4px 30px rgba(212, 175, 55, 0.1);
 }
 
 /* Efeito de brilho suave (Glow) para interações */
-.glow,
-.hover\:glow:hover,
-.focus\:glow:focus,
-.active\:glow:active {
-  box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.4);
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.8); }
 }
 
 /* Animação de pulso para o botão */
@@ -252,15 +254,15 @@ body.modal-open {
 :root {
   --stack-sidebar-bg: rgba(0, 0, 0, 0.3);
   --stack-sidebar-hover-bg: rgba(255, 255, 255, 0.1);
-  --stack-sidebar-active-bg: rgba(0, 122, 255, 0.2);
-  --stack-sidebar-active-border: #007AFF;
+  --stack-sidebar-active-bg: rgba(192, 160, 128, 0.2);
+  --stack-sidebar-active-border: #C0A080;
   --stack-sidebar-text: rgba(255, 255, 255, 0.8);
   --stack-sidebar-active-text: white;
   --stack-content-bg: transparent;
   --stack-input-bg: rgba(0, 0, 0, 0.4);
   --stack-input-border: rgba(255, 255, 255, 0.1);
   --stack-input-text: white;
-  --stack-button-primary-bg: #007AFF;
+  --stack-button-primary-bg: #C0A080;
   --stack-button-primary-text: white;
   --stack-button-secondary-bg: rgba(255, 255, 255, 0.1);
   --stack-button-secondary-text: white;
@@ -297,8 +299,8 @@ body.modal-open {
 }
 
 .stack-account-settings-sidebar-item-active {
-  background-color: rgba(0, 122, 255, 0.2) !important;
-  border-left: 3px solid #007AFF !important;
+  background-color: rgba(10, 132, 255, 0.2) !important;
+  border-left: 3px solid #0A84FF !important;
 }
 
 /* Título da sidebar */
@@ -395,8 +397,8 @@ input[type="password"] {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-  border-color: #007AFF !important;
-  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2) !important;
+  border-color: #C0A080 !important;
+  box-shadow: 0 0 0 2px rgba(192, 160, 128, 0.2) !important;
   outline: none !important;
 }
 
@@ -429,4 +431,84 @@ hr {
   border: 1px solid rgba(48, 209, 88, 0.3) !important;
   border-radius: 8px !important;
   padding: 0.75rem 1rem !important;
+}
+
+/* Atualizar efeitos de glassmorphism */
+.glass {
+  background: rgba(212, 175, 55, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 16px;
+  background-image: linear-gradient(to bottom, rgba(255, 215, 0, 0.03), rgba(212, 175, 55, 0.1));
+  box-shadow: 0 4px 30px rgba(212, 175, 55, 0.1);
+}
+
+/* Atualizar animações de brilho */
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.8); }
+}
+
+/* Atualizar o efeito de hover nos elementos interativos */
+.interactive-element:hover {
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(to bottom right, rgba(212, 175, 55, 0.1), transparent);
+}
+
+/* Atualizar todos os efeitos de brilho e gradientes */
+.glow-effect {
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+/* Atualizar o efeito de brilho nos cards */
+.card-glow {
+  background: linear-gradient(to bottom right, rgba(212, 175, 55, 0.1), transparent);
+}
+
+/* Atualizar os efeitos de blur */
+.blur-effect {
+  background: rgba(212, 175, 55, 0.05);
+  backdrop-filter: blur(20px);
+}
+
+.glow-border {
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.glow-text {
+  color: rgba(212, 175, 55, 0.9);
+}
+
+/* Underline azul Apple para títulos */
+.title-underline {
+  position: relative;
+}
+
+.title-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #D4AF37, transparent);
+}
+
+/* Underline azul Apple para cards */
+.card-underline {
+  position: relative;
+}
+
+.card-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, rgba(212, 175, 55, 0.5), #D4AF37, rgba(212, 175, 55, 0.5));
 }

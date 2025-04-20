@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jane - Gestão de Refeições",
-  description: "Controle alimentar futurista, minimalista e sem esforço, através de uma interface clean e intuitiva.",
+  title: "SALOMÃO - Inteligência Empresarial",
+  description: "Assistente de IA com interface 3D imersiva que analisa dados empresariais, identifica oportunidades e fornece insights estratégicos para decisões mais precisas.",
 };
 
 export default function RootLayout({

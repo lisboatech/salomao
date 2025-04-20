@@ -8,7 +8,7 @@ interface BackButtonProps {
   label?: string;
 }
 
-export function BackButton({ href, label = 'Voltar ao Dashboard' }: BackButtonProps) {
+export function BackButton({ href, label = 'Voltar' }: BackButtonProps) {
   return (
     <Link
       href={href}

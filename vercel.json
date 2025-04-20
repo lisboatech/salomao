@@ -4,9 +4,9 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
-    "MONGODB_URI": "mongodb+srv://lisboatech:Jpd0NgGIkz7PYBHX@jane.1ugnrns.mongodb.net/jane-meals?retryWrites=true&w=majority&appName=jane",
+    "MONGODB_URI": "mongodb+srv://lisboatech:Jpd0NgGIkz7PYBHX@noah.1ugnrns.mongodb.net/noah-meals?retryWrites=true&w=majority&appName=noah",
     "STACK_SECRET_SERVER_KEY": "sk_live_Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9",
-    "NEXT_PUBLIC_STACK_PROJECT_ID": "prj_jane_meal_tracker",
+    "NEXT_PUBLIC_STACK_PROJECT_ID": "prj_noah_meal_tracker",
     "NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY": "pk_live_Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9Ck9"
   }
 }
