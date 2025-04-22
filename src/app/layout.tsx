@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import HeadScript from "@/components/ui/head-script";
 import TiltEffect from "@/components/ui/tilt-effect";
+import { StatusBanner } from "@/components/ui/status-banner";
 import { Suspense } from "react";
 import HydrationFix from "@/components/ui/hydration-fix";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <HeadScript />
         <TiltEffect />
         <HydrationFix />
+        <StatusBanner />
         {children}
       </body>
     </html>

@@ -30,7 +30,6 @@ function DashboardContent() {
         <div className="flex items-center justify-center h-full w-full" style={{ marginTop: '-10%' }}>
           {/* Área central: Esfera como elemento âncora - estilo Apple */}
           <div className="relative flex items-center justify-center">
-
             {/* Esfera de visualização com botão de voz - posicionada mais acima */}
             <div className="relative flex items-center justify-center h-[650px] w-[650px]">
               {/* Efeito de brilho sutil em torno da esfera */}
@@ -50,6 +49,13 @@ function DashboardContent() {
               isConnected={isConnected}
               onConnectionChange={setIsConnected}
             />
+          </div>
+
+          {/* Provérbio de Salomão - posicionado abaixo do botão */}
+          <div className="fixed bottom-[5%] left-1/2 transform -translate-x-1/2 z-20">
+            <div className="text-white/60 text-xs font-light tracking-wide max-w-xs text-center">
+              <p>"A sabedoria é mais preciosa que rubis."<br/> - Provérbios 8:11</p>
+            </div>
           </div>
         </div>
       </div>
