@@ -1,0 +1,76 @@
+/* Estilos específicos para dispositivos móveis */
+/* Estes estilos serão aplicados apenas em telas menores que 768px */
+
+@media (max-width: 767px) {
+  /* Ajustes gerais */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Ajustes para o Header */
+  header {
+    padding: 0.75rem 1rem;
+  }
+
+  /* Ajustes para a seção Hero */
+  .container.relative.min-h-screen {
+    padding-top: 5rem;
+  }
+
+  .content {
+    margin-left: 1rem !important;
+    margin-top: 8rem !important;
+    max-width: 100% !important;
+  }
+
+  .tag-box {
+    width: 12rem;
+  }
+
+  .sphere-3d {
+    top: 0 !important;
+    right: -50% !important;
+    transform: scale(0.5);
+  }
+
+  /* Ajustes para as seções de Features, Benefits e How it Works */
+  .flex.flex-wrap.justify-center {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tilt-card {
+    width: 90% !important;
+    margin: 1rem auto !important;
+  }
+
+  /* Ajustes para a seção How it Works */
+  .grid.grid-cols-1.md\\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .flex.items-start.gap-10 {
+    gap: 1rem !important;
+  }
+
+  /* Ajustes para a página IA */
+  .h-screen.bg-black.text-white {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .relative.flex.items-center.justify-center.h-\\[650px\\].w-\\[650px\\] {
+    height: 350px !important;
+    width: 350px !important;
+  }
+
+  /* Ajustes para botões e elementos interativos */
+  .fixed.bottom-\\[12\\%\\] {
+    bottom: 20% !important;
+  }
+
+  .fixed.bottom-\\[5\\%\\] {
+    bottom: 10% !important;
+  }
+}
